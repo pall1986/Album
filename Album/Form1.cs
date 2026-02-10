@@ -42,5 +42,41 @@ namespace Album
                 MessageBox.Show("Autore inserito correttamente!!");
             }
         }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 1)
+            {
+                cBListaArtisti.Items.Clear();
+                foreach (Autore a in autori)
+                {
+                    cBListaArtisti.Items.Add(a.Nome + " " + a.Cognome);
+                }
+            }
+            else if (tabControl1.SelectedIndex == 2)
+            {
+                cBListaCantanti.Items.Clear();
+                foreach (Album a in album)
+                {
+                    cBListaCantanti.Items.Add(a.Nome + " - " + a.Autore.Nome + " " + a.Autore.Cognome);
+                }
+            }
+        }
+
+        private void btInserisciAlbum_Click(object sender, EventArgs e)
+        {
+            if (tBAlbum.Text == "" || tBDataAlbum.Text == "" || cBListaArtisti.SelectedIndex == -1 || tBNTracce.Text == "")
+            { MessageBox.Show("Inserisci tutti i campi!!"); }
+            else
+            {
+                Album a = new Album();
+                a.Nome = tBAlbum.Text;
+                a.Data = tBAlbum.Text;
+                a.Autore = autori.ElementAt(cBListaArtisti.SelectedIndex);
+                a.NumeroBrani = int.Parse(tBNTracce.Text);
+                album.AddLast(a);
+                MessageBox.Show("Album inserito correttamente!!");
+            }
+        }
     }
 }
