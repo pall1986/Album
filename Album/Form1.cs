@@ -35,11 +35,19 @@ namespace Album
             { MessageBox.Show("Inserisci tutti i campi!!"); }
             else
             {
-                Autore a = new Autore();
-                a.Nome = tBNome.Text;
-                a.Cognome = tBCognome.Text;
-                autori.AddLast(a);
-                MessageBox.Show("Autore inserito correttamente!!");
+                if (autori.Any(a => a.Nome == tBNome.Text && a.Cognome == tBCognome.Text))
+                {
+                    MessageBox.Show("Autore già presente!!");
+                    return;
+                }
+                else
+                {
+                    Autore a = new Autore();
+                    a.Nome = tBNome.Text;
+                    a.Cognome = tBCognome.Text;
+                    autori.AddLast(a);
+                    MessageBox.Show("Autore inserito correttamente!!");
+                }
             }
         }
 
@@ -69,13 +77,21 @@ namespace Album
             { MessageBox.Show("Inserisci tutti i campi!!"); }
             else
             {
-                Album a = new Album();
-                a.Nome = tBAlbum.Text;
-                a.Data = tBAlbum.Text;
-                a.Autore = autori.ElementAt(cBListaArtisti.SelectedIndex);
-                a.NumeroBrani = int.Parse(tBNTracce.Text);
-                album.AddLast(a);
-                MessageBox.Show("Album inserito correttamente!!");
+                if (album.Any(a => a.Nome == tBAlbum.Text && a.Autore.Nome == autori.ElementAt(cBListaArtisti.SelectedIndex).Nome && a.Autore.Cognome == autori.ElementAt(cBListaArtisti.SelectedIndex).Cognome))
+                {
+                    MessageBox.Show("Album già presente!!");
+                    return;
+                }
+                else
+                {
+                    Album a = new Album();
+                    a.Nome = tBAlbum.Text;
+                    a.Data = tBAlbum.Text;
+                    a.Autore = autori.ElementAt(cBListaArtisti.SelectedIndex);
+                    a.NumeroBrani = int.Parse(tBNTracce.Text);
+                    album.AddLast(a);
+                    MessageBox.Show("Album inserito correttamente!!");
+                }
             }
         }
     }
